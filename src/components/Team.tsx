@@ -8,8 +8,6 @@ const Team = async () => {
     (res) => res.json()
   )) as TeamType[];
 
-  console.log("Team >> ", team);
-
   return (
     <div className="max-auto md:px-6 py-[50px]">
       <section className="md-32">
