@@ -1,4 +1,12 @@
+import { getBaseURL } from "../lib";
+import { ContactType } from "../types";
+
+export const dynamicParams = false;
+
 const Contact = async () => {
+    const baseUrl = await getBaseURL()
+    const contacts = await fetch(`${baseUrl}/api/contact`, { cache: 'force-cache' }).then(res => res.json()) as ContactType
+
     return (
         <div className="max-auto md:px-6 py-[50px]">
             <section className="md-32">
@@ -13,9 +21,10 @@ const Contact = async () => {
                 <div className="flex flex-wrap justify-between">
                     <div className="mb-10 w-full">
                         <h3 className="text-xl font-semibold mb-4">Contact Information</h3>
-                        <p className="text-gray-600">Email: hello@lectrum.ua</p>
-                        <p className="text-gray-600">Phone: +380 44 333 6011</p>
-                        <p className="text-gray-600">Address: 02160, м. Київ, пр. Соборності, буд. 19, оф. 515</p>
+                        <p className="text-gray-600">Email: {contacts.email}</p>
+                        <p className="text-gray-600">Support email: {contacts.supportEmail}</p>
+                        <p className="text-gray-600">Phone: {contacts.phone}</p>
+                        <p className="text-gray-600">Address: {contacts.address}</p>
                     </div>
                 </div>
             </section>
