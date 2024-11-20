@@ -2,6 +2,15 @@ import { getBaseURL } from "@/src/lib";
 
 import CourseDetail from "@/src/components/CourseDetail";
 import { CourseType } from "@/src/types";
+import { mainCourses } from "@/src/mock";
+
+export async function generateStaticParams() {
+  return mainCourses.map((course) => {
+    return {
+      courseId: course.hash,
+    };
+  });
+}
 
 const Course = async ({
   params,
