@@ -1,6 +1,6 @@
 import { NewsType } from "@/src/types";
-import LikeButton from "./news/LikeButton";
-import CommentSection from "./news/CommentSection";
+import LikeButton from "./LikeButton";
+import CommentSection from "./CommentSection";
 
 const News = ({ news }: { news: NewsType }) => {
   return (

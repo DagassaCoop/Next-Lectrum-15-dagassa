@@ -1,8 +1,9 @@
 import { CourseType } from "@/src/types";
 import Image from "next/image";
 import Link from "next/link";
+import LikeButton from "../LikeButton";
+import CommentSection from "../CommentSection";
 const CourseDetail = ({ course }: { course: CourseType }) => {
-
   return (
     <main>
       <section className="bg-gray-800 py-8">
@@ -23,10 +24,14 @@ const CourseDetail = ({ course }: { course: CourseType }) => {
                   />
                   <div className="absolute inset-0 w-full h-full p-2 bg-gradient-to-b from-transparent to-[rgba(51,51,51,0.3)_90%]">
                     <div className="absolute top-[10px] right-0 z-[2] px-[10px] py-[2px] bg-[#fa8305] text-white text-[10px] font-roboto font-semibold leading-[1.5] text-center uppercase rounded-[3px] rounded-tr-none rounded-br-none shadow-[0_0_1px_1px_rgba(20,23,28,0.1),0_3px_1px_0_rgba(20,23,28,0.1)]">
-                      {'Bestseller'.toUpperCase()}
+                      {"Bestseller".toUpperCase()}
                     </div>
-                    <div className="text-white bg-[#fdcc0d] inline-block px-2.5 py-0.5 rounded text-sm font-medium">{course.rating}</div>
-                    <div className="absolute bottom-2.5 right-2.5 text-white bg-[rgba(51,51,51,0.8)] inline-block px-2.5 py-0.5 rounded text-xs font-medium font-roboto">{course.duration} hours</div>
+                    <div className="text-white bg-[#fdcc0d] inline-block px-2.5 py-0.5 rounded text-sm font-medium">
+                      {course.rating}
+                    </div>
+                    <div className="absolute bottom-2.5 right-2.5 text-white bg-[rgba(51,51,51,0.8)] inline-block px-2.5 py-0.5 rounded text-xs font-medium font-roboto">
+                      {course.duration} hours
+                    </div>
                   </div>
                 </Link>
               </div>
@@ -35,13 +40,22 @@ const CourseDetail = ({ course }: { course: CourseType }) => {
               <h3 className="text-2xl font-semibold text-white mb-[15px] max-md:items-center">
                 {course.description}
               </h3>
-              <p className="text-sm text-[#f7f7f7] text-left leading-6 mb-5 max-md:items-center">{course.technologies}</p>
+              <p className="text-sm text-[#f7f7f7] text-left leading-6 mb-5 max-md:items-center">
+                {course.technologies}
+              </p>
               <div className="flex items-center text-sm text-white text-left mb-5 max-md:items-center">
-                <div className="text-white bg-[#fdcc0d] inline-block px-2.5 py-0.5 rounded text-sm font-medium mr-2.5 max-md:items-center">{course.rating}</div>
+                <div className="text-white bg-[#fdcc0d] inline-block px-2.5 py-0.5 rounded text-sm font-medium mr-2.5 max-md:items-center">
+                  {course.rating}
+                </div>
               </div>
-              <div className="text-sm text-white text-left mb-5 max-md:items-center">English</div>
               <div className="text-sm text-white text-left mb-5 max-md:items-center">
-                Last updated{" "}{course.created}
+                English
+              </div>
+              <div className="text-sm text-white text-left mb-5 max-md:items-center">
+                Last updated {course.created}
+              </div>
+              <div className="flex justify-between items-center py-4">
+                <LikeButton />
               </div>
             </div>
           </div>
@@ -56,7 +70,7 @@ const CourseDetail = ({ course }: { course: CourseType }) => {
                   width={50}
                   height={50}
                   className="rounded-full border-2 border-white shadow-[0_2px_2px_0_rgba(0,0,0,0.1)] w-[50px] h-[50px] ml-0 mr-[10px]"
-                  src={'/images/avatar.jpg'}
+                  src={"/images/avatar.jpg"}
                   alt=""
                 />
                 <span>{course.createdBy}</span>
@@ -68,7 +82,9 @@ const CourseDetail = ({ course }: { course: CourseType }) => {
 
       <section className="py-[50px]">
         <div className="flex flex-col justify-center items-start mx-[10vw] h-auto">
-          <h3 className="text-lg font-medium font-roboto text-left mb-4 text-gray-800">Requirements</h3>
+          <h3 className="text-lg font-medium font-roboto text-left mb-4 text-gray-800">
+            Requirements
+          </h3>
           <ul className="list-none">
             <div className="flex items-center">
               <div className="relative h-full">
@@ -87,7 +103,9 @@ const CourseDetail = ({ course }: { course: CourseType }) => {
               </li>
             </div>
           </ul>
-          <h3 className="text-lg font-medium font-roboto text-left mb-4 text-gray-800 mt-[30px]">Descriptions</h3>
+          <h3 className="text-lg font-medium font-roboto text-left mb-4 text-gray-800 mt-[30px]">
+            Descriptions
+          </h3>
           <ul className="list-none">
             <div className="flex items-center">
               <div className="relative h-full">
@@ -102,6 +120,9 @@ const CourseDetail = ({ course }: { course: CourseType }) => {
             Throughout the course we cover tons of tools and technologies
             including:
           </p>
+        </div>
+        <div className="flex mx-[10vw] h-auto">
+          <CommentSection />
         </div>
       </section>
     </main>
