@@ -19,7 +19,7 @@ export class InfrastructureStack extends cdk.Stack {
     const websiteBucket = new s3.Bucket(this, "StaticWebsiteBucket", {
       websiteIndexDocument: "index.html",
       websiteErrorDocument: "404.html",
-      publicReadAccess: false,
+      publicReadAccess: true,
       blockPublicAccess: new s3.BlockPublicAccess({
         blockPublicPolicy: false,
       }),
