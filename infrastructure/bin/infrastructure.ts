@@ -1,9 +1,10 @@
 #!/usr/bin/env node
-import * as cdk from 'aws-cdk-lib';
-import { InfrastractureStack } from '../lib/infrastracture-stack';
+import * as cdk from "aws-cdk-lib";
+import { InfrastructureStack } from "../lib/infrastructure-stack";
 
 const app = new cdk.App();
-new InfrastractureStack(app, 'InfrastractureStack', {
+new InfrastructureStack(app, "InfrastructureStack", {
+  env: { account: "314146316105", region: "us-east-2" },
   /* If you don't specify 'env', this stack will be environment-agnostic.
    * Account/Region-dependent features and context lookups will not work,
    * but a single synthesized template can be deployed anywhere. */

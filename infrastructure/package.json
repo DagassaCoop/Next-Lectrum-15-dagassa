@@ -1,8 +1,8 @@
 {
-  "name": "infrastracture",
+  "name": "infrastructure",
   "version": "0.1.0",
   "bin": {
-    "infrastracture": "bin/infrastracture.js"
+    "infrastructure": "bin/infrastructure.js"
   },
   "scripts": {
     "build": "tsc",
