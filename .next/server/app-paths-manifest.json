@@ -1,0 +1,20 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/contact/route": "app/api/contact/route.js",
+  "/api/courses/route": "app/api/courses/route.js",
+  "/api/news/route": "app/api/news/route.js",
+  "/api/courses/[courseId]/route": "app/api/courses/[courseId]/route.js",
+  "/api/news/[newsId]/route": "app/api/news/[newsId]/route.js",
+  "/api/team/route": "app/api/team/route.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/admin/page": "app/admin/page.js",
+  "/page": "app/page.js",
+  "/courses/[courseId]/page": "app/courses/[courseId]/page.js",
+  "/news/[newsId]/page": "app/news/[newsId]/page.js",
+  "/news/page": "app/news/page.js",
+  "/info/@contact/page": "app/info/@contact/page.js",
+  "/info/@team/page": "app/info/@team/page.js",
+  "/info/page": "app/info/page.js",
+  "/teacher/courses/page": "app/teacher/courses/page.js",
+  "/teacher/about/page": "app/teacher/about/page.js"
+}
