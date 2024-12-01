@@ -1,0 +1,6 @@
+
+mutation REGISTER($user: User!) {
+  register(user: $user) {
+    data
+  }
+}
