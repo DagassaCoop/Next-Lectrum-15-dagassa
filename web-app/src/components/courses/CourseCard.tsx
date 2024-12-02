@@ -1,7 +1,8 @@
-// import { CourseType } from "@/src/types";
-import { Course } from "@/src/types/__generated__/graphql";
 import Image from "next/image";
 import Link from "next/link";
+
+// Entities
+import { Course } from "@/src/types/__generated__/graphql";
 
 const CourseCard = ({ course }: { course: Course }) => {
   return (
