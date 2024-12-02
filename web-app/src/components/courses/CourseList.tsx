@@ -13,9 +13,6 @@ const CourseList = () => {
 
   if (loading) return <span>Loading...</span>;
 
-  // const courses = data.getAllCourses.data as CourseType[];
-  console.log(courses);
-
   return (
     <div className="grid grid-cols-3 gap-4 max-lg:grid-cols-2 max-md:grid-cols-1">
       {courses?.map((course) => (

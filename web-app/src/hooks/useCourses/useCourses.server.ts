@@ -27,8 +27,6 @@ export const useCourses = async ({
     },
   });
 
-  console.log(data);
-
   return {
     loading,
     data: data?.getAllCourses.data,
