@@ -11,7 +11,7 @@ import {
 } from "@/src/types/__generated__/graphql";
 
 // Not working, get empty data array
-export const useCourses = async ({
+export const fetchCourses = async ({
   page = 0,
   limit = 10,
 }: QueryGetAllCoursesArgs) => {
