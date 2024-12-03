@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 
 // Query
-import { GET_ALL_COURSES } from "../../constants/graphql/queries/getAllCourses";
+import { GET_ALL_COURSES } from "../constants/graphql/queries/getAllCourses";
 
 // Entities
 import {

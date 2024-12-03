@@ -1,15 +1,13 @@
-"use client";
-
 // Components
 import CourseCard from "./CourseCard";
 
-// Hooks
-import { useCourses } from "@/src/hooks/useCourses/useCourses.client";
+// Actions
+import { fetchCourses } from "@/src/actions/fetchCourses.server";
 
 export const revalidate = 10;
 
-const CourseList = () => {
-  const { data: courses, loading } = useCourses({ page: 0, limit: 10 });
+const CourseList = async () => {
+  const { data: courses, loading } = await fetchCourses({ page: 1, limit: 10 });
 
   if (loading) return <span>Loading...</span>;
 
