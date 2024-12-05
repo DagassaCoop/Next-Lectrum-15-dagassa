@@ -48,8 +48,8 @@ export type Database = {
           description?: string | null;
           id?: string;
           posted_at?: string;
-          text?: string;
-          title?: string;
+          text: string;
+          title: string;
         };
         Update: {
           author?: string;

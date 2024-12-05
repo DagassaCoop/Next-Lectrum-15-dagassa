@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { signup } from "@/app/actions/signup";
+import { signup } from "@/app/auth/actions/signup";
 
 export default function RegisterPage() {
   return (

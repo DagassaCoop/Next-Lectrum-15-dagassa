@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 // Actions
-import { signout } from "@/app/actions/signout";
+import { signout } from "@/app/auth/actions/signout";
 
 const navLinks: {
   title: string;
