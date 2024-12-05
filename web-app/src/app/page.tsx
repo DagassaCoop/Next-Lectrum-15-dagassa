@@ -1,5 +1,3 @@
-import { signout } from "./auth/actions/signout";
-
 export default function Home() {
   return (
     <div className="flex justify-center items-center w-full h-full pt-20">
