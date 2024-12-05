@@ -3,12 +3,12 @@
 // DB
 import { createClient } from "@/utils/supabase/server";
 
-export async function deletePost(formData: FormData) {
-  const id = formData.get("id")?.toString();
-  if (!id) {
-    console.warn("Post ID is missing.");
-    return;
-  }
+export async function deletePost(id: string) {
+  // const id = formData.get("id")?.toString();
+  // if (!id) {
+  //   console.warn("Post ID is missing.");
+  //   return;
+  // }
   const supabase = await createClient();
 
   const { error } = await supabase.from("posts").delete().eq("id", id);

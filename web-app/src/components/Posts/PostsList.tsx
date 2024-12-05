@@ -25,7 +25,7 @@ export async function PostsList() {
             </div>
             {item.description && <p>{item.description}</p>}
             <Link href={"/blog/" + item.id} className="mt-5">
-              <button className="border border-white bg-white text-black rounded-md px-3 py-1 font-bold">
+              <button className="bg-white text-black rounded-md px-3 py-1 font-bold">
                 read more
               </button>
             </Link>
