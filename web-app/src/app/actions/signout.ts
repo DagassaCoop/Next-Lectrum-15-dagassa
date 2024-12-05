@@ -11,7 +11,7 @@ export async function signout() {
   const { error } = await supabase.auth.signOut();
 
   if (error) {
-    redirect("/error");
+    console.log(error.message);
   }
 
   revalidatePath("/", "layout");
