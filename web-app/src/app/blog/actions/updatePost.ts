@@ -1,3 +1,5 @@
+"use server";
+
 // Entities
 import { Database } from "@/entities/supabase";
 

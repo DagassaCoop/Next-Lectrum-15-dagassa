@@ -1,3 +1,5 @@
+"use server";
+
 // DB
 import { createClient } from "@/utils/supabase/server";
 
