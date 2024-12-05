@@ -46,7 +46,9 @@ export default function Post({
     router.push("/blog");
   };
 
-  const onCancel = () => {
+  const onCancel = (e: MouseEvent) => {
+    e.preventDefault();
+
     if (isAdding) router.push("/blog");
 
     setIsEditing(false);
