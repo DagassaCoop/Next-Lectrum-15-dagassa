@@ -32,8 +32,8 @@ export default function Header() {
             return (
               <Link
                 key={index}
-                href={`/topics/${item}`}
-                className={getLinkClasses(`/topics/${item}`)}
+                href={`/${item}`}
+                className={getLinkClasses(`/${item}`)}
               >
                 {item[0].toLocaleUpperCase() + item.slice(1)}
               </Link>
