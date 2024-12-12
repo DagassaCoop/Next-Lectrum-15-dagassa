@@ -36,24 +36,37 @@ export const getStaticPaths: GetStaticPaths = () => {
     params: { topic: item },
   }));
 
-  return { paths, fallback: false };
+  return { paths, fallback: "blocking" };
 };
 
-export const getStaticProps: GetStaticProps<TopicProps, Params> = async ({
-  params,
-}) => {
-  const res = await fetch(
-    "https://newsapi.org/v2/everything?" +
-      `q=${params?.topic}&` +
-      `apiKey=${process.env.NEXT_PUBLIC_NEWS_API_KEY}`
-  );
+export const getStaticProps: GetStaticProps<TopicProps> = async (context) => {
+  const { topic } = context.params as Params;
 
-  const news = ((await res.json()) as NewsApiResponse).articles;
+  let news: News[] = [];
+
+  try {
+    const res = await fetch(
+      "https://newsapi.org/v2/everything?" +
+        `q=${topic}&` +
+        `apiKey=${process.env.NEXT_PUBLIC_NEWS_API_KEY}`
+    );
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    news = ((await res.json()) as NewsApiResponse).articles;
+  } catch (error) {
+    console.error(error);
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: {
       news,
-      topic: params?.topic ?? "",
+      topic: topic,
     },
     revalidate: 84600, // 24h
   };
