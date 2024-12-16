@@ -14,12 +14,10 @@ type Params = {
 };
 
 interface TopicProps {
-  // news: News[];
   topic: string;
 }
 
 export default function Topic({ topic }: TopicProps) {
-  // console.log(topic, news);
   const { data: news, isLoading, error } = useNewsByTopic(topic);
 
   if (isLoading) return <p>Loading news...</p>;
@@ -46,30 +44,8 @@ export const getStaticPaths: GetStaticPaths = () => {
 export const getStaticProps: GetStaticProps<TopicProps> = async (context) => {
   const { topic } = context.params as Params;
 
-  // let news: News[] = [];
-
-  // try {
-  //   const res = await fetch(
-  //     "https://newsapi.org/v2/everything?" +
-  //       `q=${topic}&` +
-  //       `apiKey=${process.env.NEXT_PUBLIC_NEWS_API_KEY}`
-  //   );
-
-  //   if (!res.ok) {
-  //     throw new Error("Failed to fetch data");
-  //   }
-
-  //   news = ((await res.json()) as NewsApiResponse).articles;
-  // } catch (error) {
-  //   console.error(error);
-  //   return {
-  //     notFound: true,
-  //   };
-  // }
-
   return {
     props: {
-      // news,
       topic: topic,
     },
     revalidate: 84600, // 24h
