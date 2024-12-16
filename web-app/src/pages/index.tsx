@@ -1,27 +1,38 @@
 "use client";
-
-import { GetServerSideProps } from "next";
 import { ChangeEventHandler, useState } from "react";
+import { GetServerSideProps } from "next";
+import { useSelector } from "react-redux";
+
+// Store
+import { RootState, wrapper } from "@/store";
+import { fetchNews, fetchSources } from "@/store/slices/newSlice";
 
 // Entities
-import { News, NewsApiResponse, Source, SourcesApiResponse } from "@/types";
+import { Source } from "@/types";
 
 // Components
 import NewsList from "@/components/NewsList";
 
-interface HomeProps {
-  sources: Source[];
-  news: News[];
-}
+export default function Home() {
+  const sources = useSelector((state: RootState) => {
+    const uniqSourceIds = new Set(
+      state.news.news.map((item) => item.source.id)
+    );
 
-export default function Home({ news, sources }: HomeProps) {
+    const sources: Source[] = [];
+    uniqSourceIds.forEach((item) => {
+      const source = state.news.sources.find((subitem) => subitem.id === item);
+      if (source) sources.push(source);
+    });
+    return sources;
+  });
+  const news = useSelector((state: RootState) => state.news.news);
+  const status = useSelector((state: RootState) => state.news.status);
+
   const [source, setSource] = useState<string>("");
   const [filteredNews, setFilteredNews] = useState(news);
 
-  console.log(process.env.NEXT_PUBLIC_NEWS_API_KEY);
-
   const handleSelect: ChangeEventHandler<HTMLSelectElement> = (e) => {
-    console.log(e.target.value);
     setSource(e.target.value);
     setFilteredNews(() => {
       if (e.target.value === "") {
@@ -31,6 +42,14 @@ export default function Home({ news, sources }: HomeProps) {
       }
     });
   };
+
+  if (status === "loading") {
+    return <p>Loading transactions...</p>;
+  }
+
+  if (status === "failed") {
+    return <p>Failed to load transactions. Please try again later.</p>;
+  }
 
   return (
     <div className="w-full">
@@ -57,34 +76,12 @@ export default function Home({ news, sources }: HomeProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  // Sources
-  const resSources = await fetch(
-    "https://newsapi.org/v2/top-headlines/sources?country=us&" +
-      `apiKey=${process.env.NEXT_PUBLIC_NEWS_API_KEY}`
-  );
-  const sourcesAll: Source[] = ((await resSources.json()) as SourcesApiResponse)
-    .sources;
+export const getServerSideProps: GetServerSideProps =
+  wrapper.getServerSideProps((store) => async () => {
+    await store.dispatch(fetchNews());
+    await store.dispatch(fetchSources());
 
-  // News
-  const resNews = await fetch(
-    "https://newsapi.org/v2/top-headlines?country=us&pageSize=100&" +
-      `apiKey=${process.env.NEXT_PUBLIC_NEWS_API_KEY}`
-  );
-  const news: News[] = ((await resNews.json()) as NewsApiResponse).articles;
-
-  const uniqSourceIds = new Set(news.map((item) => item.source.id));
-
-  const sources: Source[] = [];
-  uniqSourceIds.forEach((item) => {
-    const source = sourcesAll.find((subitem) => subitem.id === item);
-    if (source) sources.push(source);
+    return {
+      props: {},
+    };
   });
-
-  return {
-    props: {
-      sources,
-      news,
-    },
-  };
-};
