@@ -20,21 +20,37 @@ const initialState: NewsSlice = {
 };
 
 export const fetchNews = createAsyncThunk("news/fetchNews", async () => {
-  const resNews = await fetch(
-    "https://newsapi.org/v2/top-headlines?country=us&pageSize=100&" +
-      `apiKey=${process.env.NEXT_PUBLIC_NEWS_API_KEY}`
-  );
-  const news: News[] = ((await resNews.json()) as NewsApiResponse).articles;
+  let news: News[] = [];
+  try {
+    const resNews = await fetch(
+      "https://newsapi.org/v2/top-headlines?country=us&pageSize=100&" +
+        `apiKey=${process.env.NEXT_PUBLIC_NEWS_API_KEY}`
+    );
+    news = ((await resNews.json()) as NewsApiResponse).articles;
+
+    console.log(new Date(), "News fetch successfully");
+  } catch (error) {
+    console.error(new Date(), error);
+  }
+
   return news;
 });
 
 export const fetchSources = createAsyncThunk("news/fetchSources", async () => {
-  const resSources = await fetch(
-    "https://newsapi.org/v2/top-headlines/sources?country=us&" +
-      `apiKey=${process.env.NEXT_PUBLIC_NEWS_API_KEY}`
-  );
-  const sources: Source[] = ((await resSources.json()) as SourcesApiResponse)
-    .sources;
+  let sources: Source[] = [];
+
+  try {
+    const resSources = await fetch(
+      "https://newsapi.org/v2/top-headlines/sources?country=us&" +
+        `apiKey=${process.env.NEXT_PUBLIC_NEWS_API_KEY}`
+    );
+    sources = ((await resSources.json()) as SourcesApiResponse).sources;
+
+    console.log(new Date(), "Sources fetch successfully");
+  } catch (error) {
+    console.error(new Date(), error);
+  }
+
   return sources;
 });
 
@@ -61,7 +77,6 @@ const newsSlice = createSlice({
         state.status = "loading";
       })
       .addCase(fetchNews.fulfilled, (state, action: PayloadAction<News[]>) => {
-        console.log("fetchNews.fulfilled >> ", action.payload);
         state.status = "succeeded";
         state.news = action.payload;
       })

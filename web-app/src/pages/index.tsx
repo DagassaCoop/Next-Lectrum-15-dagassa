@@ -78,8 +78,21 @@ export default function Home() {
 
 export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps((store) => async () => {
+    const startTime = new Date().getTime();
+
+    console.log(new Date(), "Home page > News fetch begin");
     await store.dispatch(fetchNews());
+
+    console.log(new Date(), "Home page > Sources fetch begin");
     await store.dispatch(fetchSources());
+
+    const finishTime = new Date().getTime();
+    console.log(
+      finishTime,
+      "Home page > Data fetch duration >> ",
+      finishTime - startTime,
+      "ms"
+    );
 
     return {
       props: {},
