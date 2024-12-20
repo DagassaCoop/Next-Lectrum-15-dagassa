@@ -3,6 +3,9 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { AppProps } from "next/app";
 import { useState } from "react";
+import { appWithTranslation } from "next-i18next";
+
+import i18nConfig from "../../next-i18next.config";
 
 // Components
 import Header from "@/components/Header";
@@ -28,4 +31,4 @@ function App({ Component, pageProps }: AppProps) {
   );
 }
 
-export default wrapper.withRedux(App);
+export default appWithTranslation(wrapper.withRedux(App), i18nConfig);

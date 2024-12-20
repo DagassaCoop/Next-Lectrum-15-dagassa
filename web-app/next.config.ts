@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import i18n from "./next-i18next.config";
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -11,6 +12,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  ...i18n,
 };
 
 export default nextConfig;

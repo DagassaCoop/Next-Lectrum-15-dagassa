@@ -2,6 +2,8 @@
 import { ChangeEventHandler, useState } from "react";
 import { GetServerSideProps } from "next";
 import { useSelector } from "react-redux";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 // Store
 import { RootState, wrapper } from "@/store";
@@ -14,6 +16,8 @@ import { Source } from "@/types";
 import NewsList from "@/components/NewsList";
 
 export default function Home() {
+  const { t } = useTranslation("common");
+
   const sources = useSelector((state: RootState) => {
     const uniqSourceIds = new Set(
       state.news.news.map((item) => item.source.id)
@@ -61,7 +65,7 @@ export default function Home() {
           onChange={handleSelect}
           className="text-black py-2 px-4"
         >
-          <option value="">All sources</option>
+          <option value="">{t("sources")}</option>
           {sources.map((item) => {
             return (
               <option value={item.id} key={item.id}>
@@ -77,7 +81,7 @@ export default function Home() {
 }
 
 export const getServerSideProps: GetServerSideProps =
-  wrapper.getServerSideProps((store) => async () => {
+  wrapper.getServerSideProps((store) => async ({ locale }) => {
     const startTime = new Date().getTime();
 
     console.log(new Date(), "Home page > News fetch begin");
@@ -95,6 +99,8 @@ export const getServerSideProps: GetServerSideProps =
     );
 
     return {
-      props: {},
+      props: {
+        ...(await serverSideTranslations(locale || "en", ["common"])),
+      },
     };
   });
