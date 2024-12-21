@@ -1,3 +1,4 @@
+import { logError, logInfo } from "@/libs/logger";
 import { News, NewsApiResponse, Source, SourcesApiResponse } from "@/types";
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 
@@ -28,9 +29,9 @@ export const fetchNews = createAsyncThunk("news/fetchNews", async () => {
     );
     news = ((await resNews.json()) as NewsApiResponse).articles;
 
-    console.log(new Date(), "News fetch successfully");
+    logInfo("News fetch successfully");
   } catch (error) {
-    console.error(new Date(), error);
+    logError(("News fetch failed with error >> " + error) as string);
   }
 
   return news;
@@ -46,9 +47,9 @@ export const fetchSources = createAsyncThunk("news/fetchSources", async () => {
     );
     sources = ((await resSources.json()) as SourcesApiResponse).sources;
 
-    console.log(new Date(), "Sources fetch successfully");
+    logInfo("Sources fetch successfully");
   } catch (error) {
-    console.error(new Date(), error);
+    logError(("Sources fetch failed with error >> " + error) as string);
   }
 
   return sources;
@@ -57,12 +58,21 @@ export const fetchSources = createAsyncThunk("news/fetchSources", async () => {
 export const fetchBitcoinNews = createAsyncThunk(
   "news/fetchBitcoinNews",
   async () => {
-    const resNews = await fetch(
-      "https://newsapi.org/v2/everything?q=bitcoin&" +
-        `apiKey=${process.env.NEXT_PUBLIC_NEWS_API_KEY}`
-    );
+    let news: News[] = [];
 
-    const news = ((await resNews.json()) as NewsApiResponse).articles;
+    try {
+      const resNews = await fetch(
+        "https://newsapi.org/v2/everything?q=bitcoin&" +
+          `apiKey=${process.env.NEXT_PUBLIC_NEWS_API_KEY}`
+      );
+
+      news = ((await resNews.json()) as NewsApiResponse).articles;
+
+      logInfo("Bitcoin news fetch successfully");
+    } catch (error) {
+      logError(("Bitcoin news fetch failed with error >> " + error) as string);
+    }
+
     return news;
   }
 );

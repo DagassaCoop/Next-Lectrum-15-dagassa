@@ -14,6 +14,7 @@ import { Source } from "@/types";
 
 // Components
 import NewsList from "@/components/NewsList";
+import { logInfo } from "@/libs/logger";
 
 export default function Home() {
   const { t } = useTranslation("common");
@@ -82,20 +83,14 @@ export default function Home() {
 
 export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps((store) => async ({ locale }) => {
-    const startTime = new Date().getTime();
+    const startTime = Date.now();
 
-    console.log(new Date(), "Home page > News fetch begin");
     await store.dispatch(fetchNews());
-
-    console.log(new Date(), "Home page > Sources fetch begin");
     await store.dispatch(fetchSources());
 
-    const finishTime = new Date().getTime();
-    console.log(
-      finishTime,
-      "Home page > Data fetch duration >> ",
-      finishTime - startTime,
-      "ms"
+    const finishTime = Date.now();
+    logInfo(
+      "Home page > Data fetch duration >> " + (finishTime - startTime) + "ms"
     );
 
     return {
