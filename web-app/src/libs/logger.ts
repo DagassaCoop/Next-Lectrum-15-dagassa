@@ -1,4 +1,13 @@
 import winston from "winston";
+import fs from "fs";
+import path from "path";
+
+const logDirectory = path.join(process.cwd(), "logs");
+const logFilePath = path.join(logDirectory, "app.log");
+
+if (!fs.existsSync(logDirectory)) {
+  fs.mkdirSync(logDirectory);
+}
 
 const logger = winston.createLogger({
   format: winston.format.combine(
@@ -7,7 +16,10 @@ const logger = winston.createLogger({
       return `${timestamp}: ${message}`;
     })
   ),
-  transports: [new winston.transports.Console()],
+  transports: [
+    new winston.transports.Console(),
+    new winston.transports.File({ filename: logFilePath }),
+  ],
 });
 
 export const logInfo = (message: string) => {

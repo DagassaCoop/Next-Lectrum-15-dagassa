@@ -1,5 +1,4 @@
 import path from "path";
-console.log(path.resolve("./public/locales"));
 
 /** @type {import('next-i18next').UserConfig} */
 const i18nConfig = {
