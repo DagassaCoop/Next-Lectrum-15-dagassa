@@ -1,13 +1,8 @@
 "use client";
 import { ChangeEventHandler, useState } from "react";
 import { GetServerSideProps } from "next";
-// import { useSelector } from "react-redux";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
-
-// Store
-// import { RootState, wrapper } from "@/store";
-// import { fetchNews, fetchSources } from "@/store/slices/newSlice";
 
 // Entities
 import { News, Source } from "@/types";
@@ -17,21 +12,6 @@ import NewsList from "@/components/NewsList";
 
 export default function Home() {
   const { t } = useTranslation("common");
-
-  // const sources = useSelector((state: RootState) => {
-  //   const uniqSourceIds = new Set(
-  //     state.news.news.map((item) => item.source.id)
-  //   );
-
-  //   const sources: Source[] = [];
-  //   uniqSourceIds.forEach((item) => {
-  //     const source = state.news.sources.find((subitem) => subitem.id === item);
-  //     if (source) sources.push(source);
-  //   });
-  //   return sources;
-  // });
-  // const news = useSelector((state: RootState) => state.news.news);
-  // const status = useSelector((state: RootState) => state.news.status);
 
   const sources: Source[] = [];
   const news: News[] = [];
@@ -49,14 +29,6 @@ export default function Home() {
       }
     });
   };
-
-  // if (status === "loading") {
-  //   return <p>Loading transactions...</p>;
-  // }
-
-  // if (status === "failed") {
-  //   return <p>Failed to load transactions. Please try again later.</p>;
-  // }
 
   return (
     <div className="w-full">
@@ -82,19 +54,6 @@ export default function Home() {
     </div>
   );
 }
-
-// export const getServerSideProps: GetServerSideProps =
-//   wrapper.getServerSideProps((store) => async ({ locale }) => {
-
-//     await store.dispatch(fetchNews());
-//     await store.dispatch(fetchSources());
-
-//     return {
-//       props: {
-//         ...(await serverSideTranslations(locale || "en", ["common"])),
-//       },
-//     };
-//   });
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   return {
