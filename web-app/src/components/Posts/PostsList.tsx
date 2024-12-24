@@ -1,10 +1,23 @@
+"use client";
+// Core
+import { useEffect } from "react";
 import Link from "next/link";
 
 // Actions
 import { getPosts } from "@/app/blog/actions/getPosts";
+// Hooks
+import { usePostsStore } from "@/store/postsStore";
 
-export async function PostsList() {
-  const { posts } = await getPosts();
+export default function PostsList() {
+  const posts = usePostsStore((state) => state.posts);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const { posts } = await getPosts();
+      await usePostsStore.getState().setPosts(posts);
+    };
+    if (posts.length === 0) fetchPosts();
+  }, [posts]);
 
   return (
     <div className="flex flex-col gap-6 p-8 border-2 border-grey-500 rounded-lg w-full">
