@@ -48,6 +48,14 @@ export default function Home() {
     setSource(e.target.value);
   };
 
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  if (!mounted) {
+    return null; // return this null to avoid hydration errors
+  }
+
   return (
     <div className="w-full">
       <div className="w-full mb-10 flex justify-center">
