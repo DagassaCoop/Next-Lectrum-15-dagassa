@@ -1,17 +1,40 @@
+// Core
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+
+// Hooks
+import { useNewsStore } from "@/lib/zustand/newsStore";
 
 // Entities
 import { News } from "@/types";
 
 interface NewsListProps {
-  news: News[];
+  source?: string;
 }
 
-export default function NewsList({ news }: NewsListProps) {
+export default function NewsList({ source }: NewsListProps) {
+  const news = useNewsStore((state) => state.news);
+
+  const [filteredNews, setFilteredNews] = useState<News[]>(news);
+
+  useEffect(() => {
+    if (typeof source === "undefined") {
+      setFilteredNews(news);
+    } else {
+      setFilteredNews(() => {
+        if (source === "") {
+          return news;
+        } else {
+          return news.filter((item) => item.source.id === source);
+        }
+      });
+    }
+  }, [source, news]);
+
   return (
     <div className="grid grid-cols-3 gap-6">
-      {news.map((item) => {
+      {filteredNews.map((item) => {
         return (
           <div
             key={item.url}

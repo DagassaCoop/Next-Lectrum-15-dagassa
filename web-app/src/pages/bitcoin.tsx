@@ -1,13 +1,30 @@
+// Core
+import { GetServerSideProps } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useEffect } from "react";
+
 // Components
 import NewsList from "@/components/NewsList";
-import { News } from "@/types";
+
+// Hooks
+import { useNewsStore } from "@/lib/zustand/newsStore";
 
 export default function Bitcoin() {
-  const news: News[] = [];
+  useEffect(() => {
+    useNewsStore.getState().fetchNews({ group: "everything", q: "bitcoin" });
+  });
 
   return (
     <div className="w-full">
-      <NewsList news={news} />
+      <NewsList />
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale || "en", ["common"])),
+    },
+  };
+};

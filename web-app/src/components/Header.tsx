@@ -4,8 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslation } from "next-i18next";
 
-// Mock
-import { topics } from "@/mock";
+// Components
 import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Header() {
@@ -29,19 +28,6 @@ export default function Header() {
           <Link href="/bitcoin" className={getLinkClasses("/bitcoin")}>
             {t("bitcoin")}
           </Link>
-        </div>
-        <div className="flex justify-center items-center gap-6">
-          {topics.map((item, index) => {
-            return (
-              <Link
-                key={index}
-                href={`/${item}`}
-                className={getLinkClasses(`/${item}`)}
-              >
-                {t(item)}
-              </Link>
-            );
-          })}
         </div>
       </div>
       <LanguageSwitcher />
