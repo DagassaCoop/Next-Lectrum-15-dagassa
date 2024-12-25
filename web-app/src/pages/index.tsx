@@ -2,6 +2,7 @@
 import { ChangeEventHandler, useState } from "react";
 import { GetServerSideProps } from "next";
 import { useSelector } from "react-redux";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 // Store
 import { RootState, wrapper } from "@/store";
@@ -79,11 +80,13 @@ export default function Home() {
 }
 
 export const getServerSideProps: GetServerSideProps =
-  wrapper.getServerSideProps((store) => async () => {
+  wrapper.getServerSideProps((store) => async ({ locale }) => {
     await store.dispatch(fetchNews());
     await store.dispatch(fetchSources());
 
     return {
-      props: {},
+      props: {
+        ...(await serverSideTranslations(locale || "en", ["common"])),
+      },
     };
   });

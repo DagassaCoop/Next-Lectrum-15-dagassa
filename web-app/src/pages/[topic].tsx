@@ -1,11 +1,11 @@
+// Core
 import { GetStaticProps, GetStaticPaths } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 // Components
 import NewsList from "@/components/NewsList";
-
 // Mock
 import { topics } from "@/mock";
-
 // Queries
 import { useNewsByTopic } from "@/queries/topics";
 
@@ -47,6 +47,7 @@ export const getStaticProps: GetStaticProps<TopicProps> = async (context) => {
   return {
     props: {
       topic: topic,
+      ...(await serverSideTranslations(context.locale || "en", ["common"])),
     },
     revalidate: 84600, // 24h
   };
