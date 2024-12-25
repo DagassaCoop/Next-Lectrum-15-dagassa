@@ -5,7 +5,14 @@ export default function LanguageSwitcher() {
   const router = useRouter();
   const { i18n } = useTranslation("common");
 
-  const changeLanguage = (lang: string) => {
+  const changeLanguage = async (lang: string) => {
+    await fetch("api/log", {
+      method: "POST",
+      body: JSON.stringify({
+        message: `User changed language to ${lang}`,
+      }),
+    });
+
     router.push(router.pathname, router.asPath, { locale: lang });
   };
 

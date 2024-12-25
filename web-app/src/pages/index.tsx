@@ -7,12 +7,12 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 // Store
 import { RootState, wrapper } from "@/store";
 import { fetchNews, fetchSources } from "@/store/slices/newSlice";
-
 // Entities
 import { News, Source } from "@/types";
-
 // Components
 import NewsList from "@/components/NewsList";
+// Logger
+import { logInfo } from "@/lib/logger";
 
 const getUniqSources = (news: News[], allSources: Source[]) => {
   const uniqSourceIds = new Set(news.map((item) => item.source.id));
@@ -80,7 +80,13 @@ export default function Home() {
 }
 
 export const getServerSideProps: GetServerSideProps =
-  wrapper.getServerSideProps((store) => async ({ locale }) => {
+  wrapper.getServerSideProps((store) => async ({ locale, req }) => {
+    logInfo(
+      `User visited Home page from IP: ${
+        req.headers["x-forwarded-for"] || req.connection.remoteAddress
+      }`
+    );
+
     await store.dispatch(fetchNews());
     await store.dispatch(fetchSources());
 

@@ -8,6 +8,8 @@ import NewsList from "@/components/NewsList";
 // Store
 import { RootState, wrapper } from "@/store";
 import { fetchBitcoinNews } from "@/store/slices/newSlice";
+// Logger
+import { logInfo } from "@/lib/logger";
 
 export default function Bitcoin() {
   const news = useSelector((state: RootState) => state.news.subgroups.bitcoin);
@@ -20,7 +22,13 @@ export default function Bitcoin() {
 }
 
 export const getServerSideProps: GetServerSideProps =
-  wrapper.getServerSideProps((store) => async ({ locale }) => {
+  wrapper.getServerSideProps((store) => async ({ locale, req }) => {
+    logInfo(
+      `User visited Bitcoin page from IP: ${
+        req.headers["x-forwarded-for"] || req.connection.remoteAddress
+      }`
+    );
+
     await store.dispatch(fetchBitcoinNews());
 
     return {
