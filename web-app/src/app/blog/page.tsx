@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 // Components
-import { PostsList } from "@/components/Posts/PostsList";
+import PostsList from "@/components/Posts/PostsList";
 
 export default function BlogPage() {
   return (
