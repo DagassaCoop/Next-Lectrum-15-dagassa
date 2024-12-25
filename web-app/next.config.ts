@@ -1,8 +1,7 @@
-import type { NextConfig } from "next";
-import i18nConfig from "./next-i18next.config";
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const { i18n } = require("./next-i18next.config");
 
-const nextConfig: NextConfig = {
-  /* config options here */
+module.exports = {
   reactStrictMode: true,
   images: {
     remotePatterns: [
@@ -12,7 +11,5 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  ...i18nConfig,
+  i18n,
 };
-
-export default nextConfig;

@@ -38,7 +38,7 @@ export const getStaticPaths: GetStaticPaths = () => {
     params: { topic: item },
   }));
 
-  return { paths, fallback: "blocking" };
+  return { paths, fallback: true };
 };
 
 export const getStaticProps: GetStaticProps<TopicProps> = async (context) => {

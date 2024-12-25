@@ -1,14 +1,11 @@
-import path from "path";
-
-const i18nConfig = {
+/* eslint-disable @typescript-eslint/no-require-imports */
+module.exports = {
   i18n: {
     defaultLocale: "en",
-    locales: ["en", "uk"],
+    locales: ["en", "uk", "es"],
   },
   localePath:
     typeof window === "undefined"
-      ? path.resolve("./public/locales")
+      ? require("path").resolve("./public/locales")
       : "/public/locales",
 };
-
-export default i18nConfig;

@@ -13,7 +13,7 @@ import "@/styles/globals.css";
 // Store
 import { wrapper } from "@/store";
 // I18n Config
-import i18nConfig from "../../next-i18next.config";
+// import i18nConfig from "../../next-i18next.config";
 
 function App({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(() => new QueryClient());
@@ -30,4 +30,4 @@ function App({ Component, pageProps }: AppProps) {
   );
 }
 
-export default appWithTranslation(wrapper.withRedux(App), i18nConfig);
+export default appWithTranslation(wrapper.withRedux(App));
