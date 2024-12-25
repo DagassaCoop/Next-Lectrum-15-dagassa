@@ -8,27 +8,29 @@ import { RootState, wrapper } from "@/store";
 import { fetchNews, fetchSources } from "@/store/slices/newSlice";
 
 // Entities
-import { Source } from "@/types";
+import { News, Source } from "@/types";
 
 // Components
 import NewsList from "@/components/NewsList";
 
-export default function Home() {
-  const sources = useSelector((state: RootState) => {
-    const uniqSourceIds = new Set(
-      state.news.news.map((item) => item.source.id)
-    );
+const getUniqSources = (news: News[], allSources: Source[]) => {
+  const uniqSourceIds = new Set(news.map((item) => item.source.id));
 
-    const sources: Source[] = [];
-    uniqSourceIds.forEach((item) => {
-      const source = state.news.sources.find((subitem) => subitem.id === item);
-      if (source) sources.push(source);
-    });
-    return sources;
+  const sources: Source[] = [];
+  uniqSourceIds.forEach((item) => {
+    const source = allSources.find((subitem) => subitem.id === item);
+    if (source) sources.push(source);
   });
+
+  return sources;
+};
+
+export default function Home() {
+  const allSources = useSelector((state: RootState) => state.news.sources);
   const news = useSelector((state: RootState) => state.news.news);
   const status = useSelector((state: RootState) => state.news.status);
 
+  const sources = getUniqSources(news, allSources);
   const [source, setSource] = useState<string>("");
   const [filteredNews, setFilteredNews] = useState(news);
 
