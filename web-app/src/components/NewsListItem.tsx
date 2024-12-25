@@ -16,7 +16,7 @@ export default function NewsListItem({ news: item }: INewsListItemProps) {
   useEffect(
     () =>
       setFormattedDate(new Date(item.publishedAt).toLocaleDateString("en-US")),
-    []
+    [item.publishedAt]
   );
 
   return (
