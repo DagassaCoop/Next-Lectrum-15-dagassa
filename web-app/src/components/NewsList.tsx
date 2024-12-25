@@ -8,6 +8,10 @@ interface NewsListProps {
   news: News[];
 }
 
+const getFormatDate = (date: string) => {
+  return new Date(date).toLocaleDateString();
+};
+
 export default function NewsList({ news }: NewsListProps) {
   return (
     <div className="grid grid-cols-3 gap-6">
@@ -35,7 +39,7 @@ export default function NewsList({ news }: NewsListProps) {
                 <h2 className="font-semibold hover:text-blue-500 transition ease-in-out">
                   {item.title}
                 </h2>
-                {/* <p>{new Date(item.publishedAt).toLocaleDateString()}</p> */}
+                <p>{getFormatDate(item.publishedAt)}</p>
                 <p>{item.description}</p>
               </div>
               <Link href={""} className="font-bold text-lg text-blue-500">
