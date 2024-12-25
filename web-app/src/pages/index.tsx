@@ -11,7 +11,7 @@ import { fetchNews, fetchSources } from "@/store/slices/newSlice";
 import { News, Source } from "@/types";
 
 // Components
-// import NewsList from "@/components/NewsList";
+import NewsList from "@/components/NewsList";
 
 const getUniqSources = (news: News[], allSources: Source[]) => {
   const uniqSourceIds = new Set(news.map((item) => item.source.id));
@@ -32,17 +32,17 @@ export default function Home() {
 
   const sources = getUniqSources(news, allSources);
   const [source, setSource] = useState<string>("");
-  // const [filteredNews, setFilteredNews] = useState(news);
+  const [filteredNews, setFilteredNews] = useState(news);
 
   const handleSelect: ChangeEventHandler<HTMLSelectElement> = (e) => {
     setSource(e.target.value);
-    // setFilteredNews(() => {
-    //   if (e.target.value === "") {
-    //     return news;
-    //   } else {
-    //     return news.filter((item) => item.source.id === e.target.value);
-    //   }
-    // });
+    setFilteredNews(() => {
+      if (e.target.value === "") {
+        return news;
+      } else {
+        return news.filter((item) => item.source.id === e.target.value);
+      }
+    });
   };
 
   if (status === "loading") {
@@ -73,7 +73,7 @@ export default function Home() {
           })}
         </select>
       </div>
-      {/* <NewsList news={filteredNews} /> */}
+      <NewsList news={filteredNews} />
     </div>
   );
 }
