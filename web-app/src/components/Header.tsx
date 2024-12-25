@@ -2,14 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useTranslation } from "next-i18next";
 
-// Components
-import LanguageSwitcher from "./LanguageSwitcher";
+// Mock
+import { topics } from "@/mock";
 
 export default function Header() {
   const pathname = usePathname();
-  const { t } = useTranslation("common");
 
   const getLinkClasses = (path: string) => {
     return [
@@ -23,14 +21,26 @@ export default function Header() {
       <div className="m-auto py-4 grid gap-8">
         <div className="flex justify-center gap-6">
           <Link href="/" className={getLinkClasses("/")}>
-            {t("home")}
+            Home
           </Link>
           <Link href="/bitcoin" className={getLinkClasses("/bitcoin")}>
-            {t("bitcoin")}
+            Bitcoin
           </Link>
         </div>
+        <div className="flex justify-center items-center gap-6">
+          {topics.map((item, index) => {
+            return (
+              <Link
+                key={index}
+                href={`/${item}`}
+                className={getLinkClasses(`/${item}`)}
+              >
+                {item[0].toLocaleUpperCase() + item.slice(1)}
+              </Link>
+            );
+          })}
+        </div>
       </div>
-      <LanguageSwitcher />
     </header>
   );
 }

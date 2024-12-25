@@ -1,59 +1,54 @@
-// Core
-import { ChangeEventHandler, useState, useEffect } from "react";
+"use client";
+import { ChangeEventHandler, useState } from "react";
 import { GetServerSideProps } from "next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useTranslation } from "next-i18next";
+import { useSelector } from "react-redux";
+
+// Store
+import { RootState, wrapper } from "@/store";
+import { fetchNews, fetchSources } from "@/store/slices/newSlice";
 
 // Entities
-import { Source, News } from "@/types";
+import { Source } from "@/types";
+
 // Components
 import NewsList from "@/components/NewsList";
-// Hooks
-import { useNewsStore } from "@/lib/zustand/newsStore";
-
-const getNewsUniqueSources = (news: News[], sources: Source[]) => {
-  const uniqSourceIds = new Set(news.map((item) => item.source.id));
-
-  const uniqSources: Source[] = [];
-  uniqSourceIds.forEach((item) => {
-    const source = sources.find((subitem) => subitem.id === item);
-    if (source) uniqSources.push(source);
-  });
-
-  return uniqSources;
-};
 
 export default function Home() {
-  const { t } = useTranslation("common");
+  const sources = useSelector((state: RootState) => {
+    const uniqSourceIds = new Set(
+      state.news.news.map((item) => item.source.id)
+    );
 
-  const news = useNewsStore((state) => state.news);
-  const allSources = useNewsStore((state) => state.sources);
+    const sources: Source[] = [];
+    uniqSourceIds.forEach((item) => {
+      const source = state.news.sources.find((subitem) => subitem.id === item);
+      if (source) sources.push(source);
+    });
+    return sources;
+  });
+  const news = useSelector((state: RootState) => state.news.news);
+  const status = useSelector((state: RootState) => state.news.status);
 
-  const [sources, setSources] = useState<Source[]>([]);
   const [source, setSource] = useState<string>("");
-
-  useEffect(() => {
-    useNewsStore.getState().fetchNews({ country: "us", pageSize: 100 });
-    useNewsStore.getState().fetchSources();
-  }, []);
-
-  useEffect(() => {
-    if (news.length !== 0 && allSources.length !== 0 && sources.length === 0) {
-      const sources = getNewsUniqueSources(news, allSources);
-      setSources(sources);
-    }
-  }, [news, allSources]);
+  const [filteredNews, setFilteredNews] = useState(news);
 
   const handleSelect: ChangeEventHandler<HTMLSelectElement> = (e) => {
     setSource(e.target.value);
+    setFilteredNews(() => {
+      if (e.target.value === "") {
+        return news;
+      } else {
+        return news.filter((item) => item.source.id === e.target.value);
+      }
+    });
   };
 
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-  if (!mounted) {
-    return null; // return this null to avoid hydration errors
+  if (status === "loading") {
+    return <p>Loading transactions...</p>;
+  }
+
+  if (status === "failed") {
+    return <p>Failed to load transactions. Please try again later.</p>;
   }
 
   return (
@@ -66,7 +61,7 @@ export default function Home() {
           onChange={handleSelect}
           className="text-black py-2 px-4"
         >
-          <option value="">{t("sources")}</option>
+          <option value="">All sources</option>
           {sources.map((item) => {
             return (
               <option value={item.id} key={item.id}>
@@ -76,15 +71,17 @@ export default function Home() {
           })}
         </select>
       </div>
-      <NewsList source={source} />
+      <NewsList news={filteredNews} />
     </div>
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale || "en", ["common"])),
-    },
-  };
-};
+export const getServerSideProps: GetServerSideProps =
+  wrapper.getServerSideProps((store) => async () => {
+    await store.dispatch(fetchNews());
+    await store.dispatch(fetchSources());
+
+    return {
+      props: {},
+    };
+  });
