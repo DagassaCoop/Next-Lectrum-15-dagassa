@@ -1,11 +1,11 @@
+// Core
 import { GetStaticProps, GetStaticPaths } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 // Components
 import NewsList from "@/components/NewsList";
-
 // Mock
 import { topics } from "@/mock";
-
 // Queries
 import { useNewsByTopic } from "@/queries/topics";
 
@@ -38,15 +38,19 @@ export const getStaticPaths: GetStaticPaths = () => {
     params: { topic: item },
   }));
 
-  return { paths, fallback: "blocking" };
+  return { paths, fallback: true };
 };
 
-export const getStaticProps: GetStaticProps<TopicProps> = async (context) => {
-  const { topic } = context.params as Params;
+export const getStaticProps: GetStaticProps<TopicProps> = async ({
+  params,
+  locale,
+}) => {
+  const { topic } = params as Params;
 
   return {
     props: {
       topic: topic,
+      ...(await serverSideTranslations(locale || "en", ["common"])),
     },
     revalidate: 84600, // 24h
   };

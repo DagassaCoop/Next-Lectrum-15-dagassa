@@ -61,7 +61,6 @@ const newsSlice = createSlice({
         state.status = "loading";
       })
       .addCase(fetchNews.fulfilled, (state, action: PayloadAction<News[]>) => {
-        console.log("fetchNews.fulfilled >> ", action.payload);
         state.status = "succeeded";
         state.news = action.payload;
       })

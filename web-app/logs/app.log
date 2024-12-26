@@ -1,0 +1,36 @@
+2024-12-25T22:51:29.306Z: User visited Home page from IP: ::1
+2024-12-25T22:51:45.083Z: User visited Home page from IP: ::1
+2024-12-25T22:51:47.023Z: User visited Home page from IP: ::1
+2024-12-25T22:51:52.704Z: User visited Home page from IP: ::1
+2024-12-25T22:53:10.065Z: User visited Bitcoin page from IP: ::1
+2024-12-25T23:00:25.384Z: User visited Bitcoin page from IP: ::1
+2024-12-25T23:00:27.343Z: User visited Home page from IP: ::1
+2024-12-25T23:00:27.344Z: Welcome Home
+2024-12-25T23:00:47.470Z: User visited Home page from IP: ::1
+2024-12-25T23:01:23.015Z: User visited Home page from IP: ::1
+2024-12-25T23:08:49.367Z: User visited Home page from IP: ::1
+2024-12-25T23:08:49.373Z: User visited Home page from IP: ::1
+2024-12-25T23:08:49.689Z: User visited Home page from IP: ::1
+2024-12-25T23:10:18.498Z: User visited Home page from IP: ::1
+2024-12-25T23:16:20.310Z: User visited Home page from IP: ::1
+2024-12-25T23:16:26.763Z: User visited Home page from IP: ::1
+2024-12-25T23:16:28.463Z: API log.ts отримав запит: метод=POST, шлях=/api/log
+2024-12-25T23:16:28.463Z: Неправильний формат повідомлення
+2024-12-25T23:16:28.928Z: User visited Home page from IP: ::1
+2024-12-25T23:20:59.896Z: User visited Home page from IP: ::1
+2024-12-25T23:21:03.799Z: User visited Home page from IP: ::1
+2024-12-25T23:21:12.640Z: User visited Home page from IP: ::1
+2024-12-25T23:21:14.214Z: API log.ts отримав запит: метод=POST, шлях=/api/log
+2024-12-25T23:21:14.214Z: Неправильний формат повідомлення
+2024-12-25T23:21:14.668Z: User visited Home page from IP: ::1
+2024-12-25T23:22:05.054Z: User visited Home page from IP: ::1
+2024-12-25T23:22:15.065Z: API log.ts отримав запит: метод=POST, шлях=/api/log
+2024-12-25T23:22:15.065Z: Неправильний формат повідомлення
+2024-12-25T23:22:15.489Z: User visited Home page from IP: ::1
+2024-12-25T23:23:51.165Z: User visited Home page from IP: ::1
+2024-12-25T23:24:59.931Z: User visited Home page from IP: ::1
+2024-12-25T23:25:01.862Z: User visited Home page from IP: ::1
+2024-12-25T23:25:03.039Z: API log.ts отримав запит: метод=POST, шлях=/api/log
+2024-12-25T23:25:03.039Z: Повідомлення для логування: User changed language to en
+2024-12-25T23:25:03.494Z: User visited Home page from IP: ::1
+2024-12-25T23:25:27.272Z: User visited Home page from IP: ::1

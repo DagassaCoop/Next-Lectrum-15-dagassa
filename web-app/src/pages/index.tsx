@@ -2,33 +2,36 @@
 import { ChangeEventHandler, useState } from "react";
 import { GetServerSideProps } from "next";
 import { useSelector } from "react-redux";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 // Store
 import { RootState, wrapper } from "@/store";
 import { fetchNews, fetchSources } from "@/store/slices/newSlice";
-
 // Entities
-import { Source } from "@/types";
-
+import { News, Source } from "@/types";
 // Components
 import NewsList from "@/components/NewsList";
+// Logger
+import { logInfo } from "@/lib/logger";
+
+const getUniqSources = (news: News[], allSources: Source[]) => {
+  const uniqSourceIds = new Set(news.map((item) => item.source.id));
+
+  const sources: Source[] = [];
+  uniqSourceIds.forEach((item) => {
+    const source = allSources.find((subitem) => subitem.id === item);
+    if (source) sources.push(source);
+  });
+
+  return sources;
+};
 
 export default function Home() {
-  const sources = useSelector((state: RootState) => {
-    const uniqSourceIds = new Set(
-      state.news.news.map((item) => item.source.id)
-    );
-
-    const sources: Source[] = [];
-    uniqSourceIds.forEach((item) => {
-      const source = state.news.sources.find((subitem) => subitem.id === item);
-      if (source) sources.push(source);
-    });
-    return sources;
-  });
+  const allSources = useSelector((state: RootState) => state.news.sources);
   const news = useSelector((state: RootState) => state.news.news);
   const status = useSelector((state: RootState) => state.news.status);
 
+  const sources = getUniqSources(news, allSources);
   const [source, setSource] = useState<string>("");
   const [filteredNews, setFilteredNews] = useState(news);
 
@@ -77,11 +80,19 @@ export default function Home() {
 }
 
 export const getServerSideProps: GetServerSideProps =
-  wrapper.getServerSideProps((store) => async () => {
+  wrapper.getServerSideProps((store) => async ({ locale, req }) => {
+    logInfo(
+      `User visited Home page from IP: ${
+        req.headers["x-forwarded-for"] || req.connection.remoteAddress
+      }`
+    );
+
     await store.dispatch(fetchNews());
     await store.dispatch(fetchSources());
 
     return {
-      props: {},
+      props: {
+        ...(await serverSideTranslations(locale || "en", ["common"])),
+      },
     };
   });
