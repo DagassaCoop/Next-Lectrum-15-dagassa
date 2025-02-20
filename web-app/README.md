@@ -84,15 +84,3 @@ A modern learning and teaching platform built with Next.js 15, TypeScript, and G
    ```
 
 3. **Open [http://localhost:3000](http://localhost:3000)** to view the app.
-
-## Deployment
-
-The project is configured for deployment on Vercel. For more details, refer to the [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying).
-
-## Contributing
-
-Contributions are welcome! Please ensure that you follow the code style and add tests for any new features.
-
-## License
-
-This project is private and proprietary as indicated in the package.json configuration.
