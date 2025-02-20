@@ -23,13 +23,50 @@ A modern learning and teaching platform built with Next.js 15, TypeScript, and G
 
 ## Key Solutions
 
-- **Apollo Client Setup**: Configured with `ApolloNextAppProvider` for seamless GraphQL integration.
+### Apollo Client Integration
 
-- **Custom Layouts**: Use of custom layouts for different sections of the app, such as `RootLayout` and `TeacherLayout`.
+- **Custom Apollo Provider**: Implemented using `ApolloNextAppProvider` for seamless GraphQL integration with Next.js 15
+- **Type-Safe Queries**: Utilizes GraphQL Codegen to generate TypeScript types from the GraphQL schema
+- **GraphQL Codegen**: Automated type generation from GraphQL schema
+- **GraphQL Operations**: Structured queries and mutations for course management
 
-- **Dynamic API Routes**: Implementation of dynamic API routes for fetching course details.
+### Authentication System
 
-- **Component-Based Architecture**: Modular components for reusability, such as `CourseCard`, `CourseDetail`, and `ProfileInfo`.
+- **JWT-based Auth**: Implementation of login and registration flows with JWT token storage
+- **Protected Routes**: Authentication state management for protected routes
+- **Responsive Auth Forms**: Modern, accessible authentication forms with error handling
+
+### Layout System
+
+- **Root Layout**: Global layout with header and footer components
+
+- **Teacher Dashboard Layout**: Specialized layout for teacher section with profile information
+
+### Parallel Routing
+
+- **Implementation of parallel routes for info pages (team and contact sections)**
+
+### Component Architecture
+
+- **Reusable Course Components**: Modular course cards and detail views\*\*
+
+- **Dynamic News System**: Interactive news components with real-time comments and likes
+
+- **Profile Management**: Comprehensive profile information display with course statistics
+
+### API Integration
+
+- **Dynamic API Routes**: Implementation of RESTful endpoints for various data fetches
+
+### State Management
+
+- **Custom Hooks**: Specialized hooks for data fetching and state management
+
+- **Local State**: Efficient use of React's useState for component-level state management
+
+### Styling Solution
+
+- **Tailwind Configuration**: Custom Tailwind setup with extended theme options
 
 ## Project Structure
 
